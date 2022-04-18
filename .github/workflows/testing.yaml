@@ -23,7 +23,7 @@ jobs:
           - macos-latest
           - windows-latest
     env:
-      CARDTRADER_ACCESS_TOKEN: Testing
+      CARDTRADER_ACCESS_TOKEN: ${{ secrets.CARDTRADER_ACCESS_TOKEN }}
     runs-on: ${{ matrix.os }}
     steps:
       #----------------------------------------------
