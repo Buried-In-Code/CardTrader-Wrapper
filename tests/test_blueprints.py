@@ -1,7 +1,13 @@
+"""
+The Test Blueprints module.
+
+This module contains tests for Blueprint objects.
+"""
 from cardtrader.service import CardTrader
 
 
 def test_blueprints(session: CardTrader):
+    """Test the Blueprints function."""
     results = session.blueprints(expansion_id=1)
     result = [x for x in results if x.id_ == 6]
     assert len(result) == 1

@@ -1,7 +1,8 @@
+"""cardtrader package entry file."""
 from importlib.metadata import version
 
 __version__ = version("CardTrader-Wrapper")
-__all__ = ["get_cache_root", "get_config_root", "get_project_root"]
+__all__ = ["__version__", "get_cache_root", "get_config_root", "get_project_root"]
 
 from pathlib import Path
 

@@ -1,3 +1,10 @@
+"""
+The Service module.
+
+This module provides the following classes:
+
+- CardTrader
+"""
 import logging
 import platform
 from json import JSONDecodeError
@@ -22,6 +29,18 @@ MINUTE = 60
 
 
 class CardTrader:
+    """
+    Session to request ComicVine API endpoints.
+
+    Args:
+        access_token: User's Access Token key to access the CardTrader API.
+        cache: SQLiteCache to use if set.
+
+    Attributes:
+        headers (Dict[str, str]): Header used when requesting from CardTrader API.
+        cache (Optional[SQLiteCache]): SQLiteCache to use if set.
+    """
+
     API_URL = "https://api.cardtrader.com/api/v2"
 
     def __init__(self, access_token: str, cache: Optional[SQLiteCache] = None):
@@ -35,6 +54,16 @@ class CardTrader:
     @sleep_and_retry
     @limits(calls=20, period=MINUTE)
     def _perform_get_request(self, url: str, params: Dict[str, str] = None) -> Dict[str, Any]:
+        """
+        Make GET request to a CardTrader API endpoint.
+
+        Args:
+            url: The url to request information from.
+            params: Parameters to add to the request.
+
+        Returns:
+            Dict response from CardTrader API or empty if errors.
+        """
         if params is None:
             params = {}
 
@@ -57,6 +86,17 @@ class CardTrader:
         params: Dict[str, str] = None,
         skip_cache: bool = False,
     ) -> Dict[str, Any]:
+        """
+        Check cache or make GET request to a CardTrader API endpoint.
+
+        Args:
+            endpoint: The endpoint to request information from.
+            params: Parameters to add to the request.
+            skip_cache: Perform request without using the cache.
+
+        Returns:
+            Dict response from CardTrader API or empty if errors.
+        """
         cache_params = f"?{urlencode(params)}" if params else ""
 
         url = self.API_URL + endpoint
@@ -76,18 +116,39 @@ class CardTrader:
         return response
 
     def info(self) -> Optional[Info]:
+        """
+        Request Info data, used to test authentication.
+
+        Returns:
+            An Info object or None
+        """
         response = self._get_request(endpoint="/info", skip_cache=True)
         if response:
             return Info.from_dict(response)
         return None
 
     def games(self) -> List[Game]:
+        """
+        Request List of Games.
+
+        Returns:
+            A list of Game objects or an empty List.
+        """
         response = self._get_request(endpoint="/games")
         if response:
             return Game.schema().load(response["array"], many=True)
         return []
 
     def categories(self, game_id: Optional[int] = None) -> List[Category]:
+        """
+        Request List of Games.
+
+        Args:
+            game_id: Optional value to filter response based on Game id.
+
+        Returns:
+            A list of Category objects or an empty List.
+        """
         response = self._get_request(
             endpoint="/categories", params={"game_id": str(game_id)} if game_id else None
         )
@@ -96,12 +157,27 @@ class CardTrader:
         return []
 
     def expansions(self) -> List[Expansion]:
+        """
+        Request List of Expansions.
+
+        Returns:
+            A list of Expansion objects or an empty List.
+        """
         response = self._get_request(endpoint="/expansions")
         if response:
             return Expansion.schema().load(response, many=True)
         return []
 
     def blueprints(self, expansion_id: int) -> List[Blueprint]:
+        """
+        Request List of Blueprints.
+
+        Args:
+            expansion_id: Filter blueprints based on Expansion id.
+
+        Returns:
+            A list of Blueprint objects or an empty List.
+        """
         response = self._get_request(
             endpoint="/blueprints/export", params={"expansion_id": expansion_id}
         )
@@ -110,6 +186,15 @@ class CardTrader:
         return []
 
     def products_by_expansion(self, expansion_id: int) -> List[Product]:
+        """
+        Request List of Products, filtered by Expansion id.
+
+        Args:
+            expansion_id: Filter products based on Expansion id.
+
+        Returns:
+            A list of Product objects or an empty List.
+        """
         response = self._get_request(
             endpoint="/marketplace/products", params={"expansion_id": expansion_id}
         )
@@ -118,6 +203,15 @@ class CardTrader:
         return []
 
     def products_by_blueprint(self, blueprint_id: int) -> List[Product]:
+        """
+        Request List of Products, filtered by Blueprint id.
+
+        Args:
+            blueprint_id: Filter products based on Blueprint id.
+
+        Returns:
+            A list of Product objects or an empty List.
+        """
         response = self._get_request(
             endpoint="/marketplace/products", params={"blueprint_id": blueprint_id}
         )
