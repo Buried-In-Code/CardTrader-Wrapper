@@ -1,4 +1,4 @@
-**CardTrader - Wrapper** is a python wrapper for the CardTrader API.
+**CardTrader Wrapper** is a python wrapper for the CardTrader API.
 
 .. code-block:: python
 

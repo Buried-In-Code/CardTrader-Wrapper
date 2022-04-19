@@ -3,7 +3,7 @@
 Installation
 ============
 
-**CardTrader-Wrapper** requires Python >= 3.8.
+**CardTrader Wrapper** requires Python >= 3.8.
 
 Installing/Upgrading from the PyPI
 ----------------------------------

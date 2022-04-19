@@ -1,4 +1,4 @@
-CardTrader-Wrapper
+CardTrader Wrapper
 ==================
 
 .. toctree::

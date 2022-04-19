@@ -24,6 +24,15 @@ A [Python](https://www.python.org/) wrapper for the [CardTrader](https://cardtra
 $ poetry add CardTrader-Wrapper
 ```
 
+### Local Setup
+
+1. Fork this repo
+2. Create the env variable `CARDTRADER_ACCESS_TOKEN` with your access token from [CardTrader](https://cardtrader.com).
+3. Make sure you have [Python](https://python.org/) installed: `python --version`
+4. Make sure you have [Poetry](https://python-poetry.org/) installed: `poetry --version`
+5. Clone the repo: `git clone https://github.com/<Username>/CardTrader-Wrapper`
+6. Install the project and its dependencies via poetry: `poetry install`
+
 ## Example Usage
 
 ```python
