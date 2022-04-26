@@ -20,3 +20,13 @@ def test_blueprints(session: CardTrader):
     assert result[0].scryfall_id == "b2a93747-720a-4ddf-8325-36db78e0a584"
     assert result[0].fixed_properties is not None
     assert result[0].editable_properties is not None
+
+
+def test_null_pricing(session: CardTrader):
+    results = session.blueprints(expansion_id=2591)
+    result = [x for x in results if x.id_ == 169160]
+    assert len(result) == 1
+    assert result[0].id_ == 169160
+    assert result[0].card_market_id is None
+    assert result[0].tcg_player_id is None
+    assert result[0].scryfall_id is None
