@@ -1,13 +1,7 @@
-"""
-The Test Products module.
-
-This module contains tests for Products objects.
-"""
 from cardtrader.service import CardTrader
 
 
 def test_products_by_expansion(session: CardTrader):
-    """Test the Products function using an Expansion id."""
     results = session.products_by_expansion(expansion_id=1)
     result = [x for x in results if x.id_ == 103811027]
     assert len(result) == 1
@@ -27,7 +21,6 @@ def test_products_by_expansion(session: CardTrader):
 
 
 def test_products_by_blueprint(session: CardTrader):
-    """Test the Products function using a Blueprint id."""
     results = session.products_by_blueprint(blueprint_id=1)
     result = [x for x in results if x.id_ == 127886155]
     assert len(result) == 1

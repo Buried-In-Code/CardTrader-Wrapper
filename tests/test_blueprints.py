@@ -1,13 +1,7 @@
-"""
-The Test Blueprints module.
-
-This module contains tests for Blueprint objects.
-"""
 from cardtrader.service import CardTrader
 
 
 def test_blueprints(session: CardTrader):
-    """Test the Blueprints function."""
     results = session.blueprints(expansion_id=1)
     result = [x for x in results if x.id_ == 6]
     assert len(result) == 1
@@ -18,8 +12,8 @@ def test_blueprints(session: CardTrader):
     assert result[0].category_id == 1
     assert result[0].expansion_id == 1
     assert (
-        result[0].image_url
-        == "https://cardtrader.com/uploads/blueprints/image/6/preview_gnt-44-ghalta-primal-hunger.jpg"
+        result[0].image_url == "https://cardtrader.com/uploads/blueprints/image/6"
+        "/preview_gnt-44-ghalta-primal-hunger.jpg"
     )
     assert result[0].card_market_id == 366585
     assert result[0].tcg_player_id == 180397

@@ -28,7 +28,7 @@ class User:
     too_many_request_for_cancel_as_seller: bool
     user_type: str
     can_sell_sealed_with_ct_zero: bool
-    max_sellable_in24h_quantity: Optional[int]
+    max_sellable_in24h_quantity: Optional[int] = None
     id_: int = field(metadata=config(field_name="id"))
     username: str
     can_sell_via_hub: bool
@@ -38,14 +38,14 @@ class User:
 @dataclass
 class Product:
     quantity: int
-    description: Optional[str]
+    description: Optional[str] = None
     price_cents: int
     layered_price_cents: int
     blueprint_id: int
     expansion: Expansion
     graded: bool
     id_: int = field(metadata=config(field_name="id"))
-    tag: Optional[str]
+    tag: Optional[str] = None
     bundle_size: int
     on_vacation: bool
     seller: User = field(metadata=config(field_name="user"))

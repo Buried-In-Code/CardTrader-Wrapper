@@ -1,13 +1,7 @@
-"""
-The Test Categories module.
-
-This module contains tests for Category objects.
-"""
 from cardtrader.service import CardTrader
 
 
 def test_categories(session: CardTrader):
-    """Test the Categories function."""
     results = session.categories()
     result = [x for x in results if x.id_ == 1]
     assert len(result) == 1
@@ -18,7 +12,6 @@ def test_categories(session: CardTrader):
 
 
 def test_categories_with_game_id(session: CardTrader):
-    """Test the Categories function using a Game id."""
     results = session.categories(game_id=6)
     result = [x for x in results if x.id_ == 80]
     assert len(result) == 1

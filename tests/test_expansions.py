@@ -1,13 +1,7 @@
-"""
-The Test Expansions module.
-
-This module contains tests for Expansion objects.
-"""
 from cardtrader.service import CardTrader
 
 
 def test_expansions(session: CardTrader):
-    """Test the Expansions function."""
     results = session.expansions()
     result = [x for x in results if x.id_ == 1]
     assert len(result) == 1
