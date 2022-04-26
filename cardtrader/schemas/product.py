@@ -16,42 +16,42 @@ class Price:
 @dataclass_json(undefined=Undefined.RAISE)
 @dataclass
 class Expansion:
-    id_: int = field(metadata=config(field_name="id"))
     code: str
+    id_: int = field(metadata=config(field_name="id"))
     name: str = field(metadata=config(field_name="name_en"))
 
 
 @dataclass_json(undefined=Undefined.RAISE)
 @dataclass
 class User:
+    can_sell_sealed_with_ct_zero: bool
+    can_sell_via_hub: bool
     country_code: str
+    id_: int = field(metadata=config(field_name="id"))
     too_many_request_for_cancel_as_seller: bool
     user_type: str
-    can_sell_sealed_with_ct_zero: bool
-    max_sellable_in24h_quantity: Optional[int] = None
-    id_: int = field(metadata=config(field_name="id"))
     username: str
-    can_sell_via_hub: bool
+    max_sellable_in24h_quantity: Optional[int] = None
 
 
 @dataclass_json(undefined=Undefined.RAISE)
 @dataclass
 class Product:
-    quantity: int
-    description: Optional[str] = None
-    price_cents: int
-    layered_price_cents: int
     blueprint_id: int
+    bundle_size: int
     expansion: Expansion
     graded: bool
     id_: int = field(metadata=config(field_name="id"))
-    tag: Optional[str] = None
-    bundle_size: int
-    on_vacation: bool
-    seller: User = field(metadata=config(field_name="user"))
-    price_currency: str
+    layered_price_cents: int
     name: str = field(metadata=config(field_name="name_en"))
+    on_vacation: bool
     price: Price
+    price_cents: int
+    price_currency: str
+    quantity: int
+    seller: User = field(metadata=config(field_name="user"))
+    description: Optional[str] = None
     properties: Dict[str, Union[str, bool]] = field(
         default_factory=dict, metadata=config(field_name="properties_hash")
     )
+    tag: Optional[str] = None

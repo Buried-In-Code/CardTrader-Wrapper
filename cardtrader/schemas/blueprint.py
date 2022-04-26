@@ -16,15 +16,15 @@ class Property:
 @dataclass_json(undefined=Undefined.RAISE)
 @dataclass
 class Blueprint:
-    id_: int = field(metadata=config(field_name="id"))
-    name: str
-    version: Optional[str] = None
-    game_id: int
+    card_market_id: int
     category_id: int
     expansion_id: int
+    game_id: int
+    id_: int = field(metadata=config(field_name="id"))
     image_url: str
-    card_market_id: int
-    tcg_player_id: Optional[int] = None
+    name: str
     scryfall_id: str
-    fixed_properties: Dict[str, str] = field(default_factory=dict)
     editable_properties: List[Property] = field(default_factory=list)
+    fixed_properties: Dict[str, str] = field(default_factory=dict)
+    tcg_player_id: Optional[int] = None
+    version: Optional[str] = None

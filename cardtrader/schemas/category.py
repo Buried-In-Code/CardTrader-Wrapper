@@ -15,7 +15,7 @@ class Property:
 @dataclass_json(undefined=Undefined.RAISE)
 @dataclass
 class Category:
+    game_id: int
     id_: int = field(metadata=config(field_name="id"))
     name: str
-    game_id: int
     properties: List[Property] = field(default_factory=list)
