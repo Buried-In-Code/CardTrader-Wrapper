@@ -9,6 +9,7 @@ from requests import get
 from requests.exceptions import ConnectionError, HTTPError
 
 from cardtrader import __version__
+from cardtrader.exceptions import ServiceError
 from cardtrader.schemas.blueprint import Blueprint
 from cardtrader.schemas.category import Category
 from cardtrader.schemas.expansion import Expansion
@@ -16,7 +17,6 @@ from cardtrader.schemas.game import Game
 from cardtrader.schemas.info import Info
 from cardtrader.schemas.product import Product
 from cardtrader.sqlite_cache import SQLiteCache
-from cardtrader.exceptions import ServiceError
 
 LOGGER = logging.getLogger(__name__)
 MINUTE = 60
