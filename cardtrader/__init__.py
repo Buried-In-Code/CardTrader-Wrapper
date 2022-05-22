@@ -1,6 +1,4 @@
-from importlib.metadata import version
-
-__version__ = version("CardTrader-Wrapper")
+__version__ = "0.1.2"
 __all__ = ["__version__", "get_cache_root", "get_config_root", "get_project_root"]
 
 from pathlib import Path

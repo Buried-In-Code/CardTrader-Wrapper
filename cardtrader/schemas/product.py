@@ -40,7 +40,6 @@ class Product:
     blueprint_id: int
     bundle_size: int
     expansion: Expansion
-    graded: bool
     id_: int = field(metadata=config(field_name="id"))
     layered_price_cents: int
     name: str = field(metadata=config(field_name="name_en"))
@@ -51,6 +50,7 @@ class Product:
     quantity: int
     seller: User = field(metadata=config(field_name="user"))
     description: Optional[str] = None
+    graded: Optional[bool] = None
     properties: Dict[str, Union[str, bool]] = field(
         default_factory=dict, metadata=config(field_name="properties_hash")
     )

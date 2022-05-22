@@ -16,6 +16,7 @@ from cardtrader.schemas.game import Game
 from cardtrader.schemas.info import Info
 from cardtrader.schemas.product import Product
 from cardtrader.sqlite_cache import SQLiteCache
+from cardtrader.exceptions import ServiceError
 
 LOGGER = logging.getLogger(__name__)
 MINUTE = 60
@@ -44,13 +45,11 @@ class CardTrader:
             response.raise_for_status()
             return response.json()
         except ConnectionError as ce:
-            LOGGER.error(f"Unable to connect to `{url}`: {ce}")
+            raise ServiceError(f"Unable to connect to `{url}`: {ce.response.text}")
         except HTTPError as he:
-            LOGGER.error(he.response.text)
+            raise ServiceError(he.response.text)
         except JSONDecodeError as de:
-            LOGGER.error(f"Invalid response from `{url}`: {de}")
-
-        return {}
+            raise ServiceError(f"Invalid response from `{url}`: {de}")
 
     def _get_request(
         self,
