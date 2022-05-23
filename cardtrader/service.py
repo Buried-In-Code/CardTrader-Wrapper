@@ -45,7 +45,7 @@ class CardTrader:
             response.raise_for_status()
             return response.json()
         except ConnectionError as ce:
-            raise ServiceError(f"Unable to connect to `{url}`: {ce.response.text}")
+            raise ServiceError(f"Unable to connect to `{url}`: {ce.response}")
         except HTTPError as he:
             raise ServiceError(he.response.text)
         except JSONDecodeError as de:
