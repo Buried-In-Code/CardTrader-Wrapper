@@ -51,7 +51,7 @@ class Product:
     description: Optional[str] = None
     graded: Optional[bool] = None
     layered_price_cents: Optional[int] = None
-    properties: Dict[str, Union[str, bool]] = field(
+    properties: Dict[str, Optional[Union[str, bool]]] = field(
         default_factory=dict, metadata=config(field_name="properties_hash")
     )
     tag: Optional[str] = None

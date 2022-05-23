@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "CardTrader-Wrapper"
-version = "0.1.3"
+version = "0.1.4"
 description = "A Python wrapper for the CardTrader API."
 license = "GPL-3.0-or-later"
 authors = ["Buried-In-Code <BuriedInCode@tuta.io>"]
