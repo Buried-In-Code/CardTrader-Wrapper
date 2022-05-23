@@ -41,7 +41,6 @@ class Product:
     bundle_size: int
     expansion: Expansion
     id_: int = field(metadata=config(field_name="id"))
-    layered_price_cents: int
     name: str = field(metadata=config(field_name="name_en"))
     on_vacation: bool
     price: Price
@@ -51,6 +50,7 @@ class Product:
     seller: User = field(metadata=config(field_name="user"))
     description: Optional[str] = None
     graded: Optional[bool] = None
+    layered_price_cents: Optional[int] = None
     properties: Dict[str, Union[str, bool]] = field(
         default_factory=dict, metadata=config(field_name="properties_hash")
     )
