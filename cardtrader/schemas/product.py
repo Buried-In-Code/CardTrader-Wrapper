@@ -1,57 +1,91 @@
-from dataclasses import dataclass, field
 from typing import Dict, Optional, Union
 
-from dataclasses_json import Undefined, config, dataclass_json
+from pydantic import BaseModel, Extra, Field, validator
 
 
-@dataclass_json(undefined=Undefined.RAISE)
-@dataclass
-class Price:
+class Price(BaseModel):
     cents: int
     currency: str
     currency_symbol: str
     formatted: str
 
+    class Config:
+        anystr_strip_whitespace = True
+        extra = Extra.forbid
 
-@dataclass_json(undefined=Undefined.RAISE)
-@dataclass
-class Expansion:
+    @validator("currency", "currency_symbol", "formatted", pre=True, check_fields=False)
+    def remove_blank_strings(cls, value: str):
+        if value:
+            return value
+        return None
+
+
+class Expansion(BaseModel):
     code: str
-    id_: int = field(metadata=config(field_name="id"))
-    name: str = field(metadata=config(field_name="name_en"))
+    id_: int = Field(alias="id")
+    expansion_id: int = Field(alias="id")
+    name: str = Field(alias="name_en")
+
+    class Config:
+        anystr_strip_whitespace = True
+        extra = Extra.forbid
+
+    @validator("code", "name", pre=True, check_fields=False)
+    def remove_blank_strings(cls, value: str):
+        if value:
+            return value
+        return None
 
 
-@dataclass_json(undefined=Undefined.RAISE)
-@dataclass
-class User:
+class User(BaseModel):
     can_sell_sealed_with_ct_zero: bool
     can_sell_via_hub: bool
     country_code: str
-    id_: int = field(metadata=config(field_name="id"))
+    id_: int = Field(alias="id")
+    user_id: int = Field(alias="id")
     too_many_request_for_cancel_as_seller: bool
     user_type: str
     username: str
-    max_sellable_in24h_quantity: Optional[int] = None
+    max_sellable_in24h_quantity: Optional[int] = Field(default=None)
+
+    class Config:
+        anystr_strip_whitespace = True
+        extra = Extra.forbid
+
+    @validator("country_code", "user_type", "username", pre=True, check_fields=False)
+    def remove_blank_strings(cls, value: str):
+        if value:
+            return value
+        return None
 
 
-@dataclass_json(undefined=Undefined.RAISE)
-@dataclass
-class Product:
+class Product(BaseModel):
     blueprint_id: int
     bundle_size: int
     expansion: Expansion
-    id_: int = field(metadata=config(field_name="id"))
-    name: str = field(metadata=config(field_name="name_en"))
+    id_: int = Field(alias="id")
+    product_id: int = Field(alias="id")
+    name: str = Field(alias="name_en")
     on_vacation: bool
     price: Price
     price_cents: int
     price_currency: str
     quantity: int
-    seller: User = field(metadata=config(field_name="user"))
-    description: Optional[str] = None
-    graded: Optional[bool] = None
-    layered_price_cents: Optional[int] = None
-    properties: Dict[str, Optional[Union[str, bool]]] = field(
-        default_factory=dict, metadata=config(field_name="properties_hash")
+    seller: User = Field(alias="user")
+    description: Optional[str] = Field(default=None)
+    graded: Optional[bool] = Field(default=None)
+    layered_price_cents: Optional[int] = Field(default=None)
+    properties: Dict[str, Optional[Union[str, bool]]] = Field(
+        alias="properties_hash", default_factory=dict
     )
-    tag: Optional[str] = None
+    tag: Optional[str] = Field(default=None)
+
+    class Config:
+        anystr_strip_whitespace = True
+        extra = Extra.forbid
+
+    @validator("name", "price_currency", "description", "tag", pre=True, check_fields=False)
+    def remove_blank_strings(cls, value: str):
+        if value:
+            return value
+        return None

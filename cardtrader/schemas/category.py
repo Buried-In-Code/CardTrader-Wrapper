@@ -1,21 +1,38 @@
-from dataclasses import dataclass, field
 from typing import List, Union
 
-from dataclasses_json import Undefined, config, dataclass_json
+from pydantic import BaseModel, Extra, Field, validator
 
 
-@dataclass_json(undefined=Undefined.RAISE)
-@dataclass
-class Property:
+class Property(BaseModel):
     name: str
-    type_: str = field(metadata=config(field_name="type"))
-    possible_values: List[Union[str, bool]] = field(default_factory=list)
+    type_: str = Field(alias="type")
+    property_type: str = Field(alias="type")
+    possible_values: List[Union[str, bool]] = Field(default_factory=list)
+
+    class Config:
+        anystr_strip_whitespace = True
+        extra = Extra.forbid
+
+    @validator("name", "type", "property_type", pre=True, check_fields=False)
+    def remove_blank_strings(cls, value: str):
+        if value:
+            return value
+        return None
 
 
-@dataclass_json(undefined=Undefined.RAISE)
-@dataclass
-class Category:
+class Category(BaseModel):
     game_id: int
-    id_: int = field(metadata=config(field_name="id"))
+    id_: int = Field(alias="id")
+    category_id: int = Field(alias="id")
     name: str
-    properties: List[Property] = field(default_factory=list)
+    properties: List[Property] = Field(default_factory=list)
+
+    class Config:
+        anystr_strip_whitespace = True
+        extra = Extra.forbid
+
+    @validator("name", pre=True, check_fields=False)
+    def remove_blank_strings(cls, value: str):
+        if value:
+            return value
+        return None
