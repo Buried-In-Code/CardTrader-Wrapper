@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "CardTrader-Wrapper"
-version = "0.1.5"
+version = "0.2.0"
 description = "A Python wrapper for the CardTrader API."
 license = "GPL-3.0-or-later"
 authors = ["Buried-In-Code <BuriedInCode@tuta.io>"]
@@ -15,7 +15,6 @@ include = [
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
-    "Environment :: Console",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
     "Natural Language :: English",
@@ -30,9 +29,9 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.8"
-dataclasses-json = "^0.5.7"
-requests = "^2.27.1"
+requests = "^2.28.0"
 ratelimit = "^2.2.1"
+pydantic = "^1.9.1"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.19.0"

@@ -1,4 +1,4 @@
-__version__ = "0.1.5"
+__version__ = "0.2.0"
 __all__ = ["__version__", "get_cache_root", "get_config_root", "get_project_root"]
 
 from pathlib import Path

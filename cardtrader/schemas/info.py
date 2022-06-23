@@ -1,11 +1,18 @@
-from dataclasses import dataclass, field
-
-from dataclasses_json import Undefined, config, dataclass_json
+from pydantic import BaseModel, Extra, Field, validator
 
 
-@dataclass_json(undefined=Undefined.RAISE)
-@dataclass
-class Info:
-    id_: int = field(metadata=config(field_name="id"))
+class Info(BaseModel):
+    id_: int = Field(alias="id")
+    info_id: int = Field(alias="id")
     name: str
     shared_secret: str
+
+    class Config:
+        anystr_strip_whitespace = True
+        extra = Extra.forbid
+
+    @validator("name", "shared_secret", pre=True, check_fields=False)
+    def remove_blank_strings(cls, value: str):
+        if value:
+            return value
+        return None
